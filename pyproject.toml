@@ -1,0 +1,14 @@
+[project]
+name = "caikit-client"
+version = "0.0.1"
+description = "Caikit Client"
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = "~=3.9"
+classifiers=[
+    "License :: OSI Approved :: Apache Software License"
+]
+dependencies = [
+    "grpcio",
+    "grpcio-reflection"
+]
