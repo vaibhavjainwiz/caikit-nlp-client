@@ -1,5 +1,11 @@
+class ExponentialDecayLengthPenalty:
+    start_index: int
+    decay_factor: float
+
 class TextGenerationTaskRequest:
+    model_id: str
     text: str
+##
     max_new_tokens: int
     min_new_tokens: int
     truncate_input_tokens: int
@@ -11,6 +17,6 @@ class TextGenerationTaskRequest:
     seed: int
     repetition_penalty: float
     max_time: float
-    # exponential_decay_length_penalty: _exponentialdecaylengthpenalty_pb2.ExponentialDecayLengthPenalty
-    # stop_sequences: _containers.RepeatedScalarFieldContainer[str]
+    exponential_decay_length_penalty: ExponentialDecayLengthPenalty
+    stop_sequences: [str]
     preserve_input_text: bool

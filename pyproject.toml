@@ -1,8 +1,11 @@
 [tool.poetry.dependencies]
 python = "^3.9"
 caikit-nlp = { git = "https://github.com/opendatahub-io/caikit-nlp", rev = "0.2.1" }
+protobuf  ="4.24.4"
+alog = "1.2.0"
 grpcio = "1.59.0"
 grpcio-reflection = "1.59.0"
+#build time dependencies
 grpcio-tools = "1.59.0"
 
 [tool.poetry]
@@ -14,7 +17,7 @@ readme = "README.md"
 classifiers=[
     "License :: OSI Approved :: Apache Software License"
 ]
-authors = ["Daniele Trifirò <dtrifiro@redhat.com>"]
+authors = ["Vaibhav Jain <vajain@redhat.com>", "Laurentiu Bradin <laurentiu.bradin@ibm.com>"]
 
 [build-system]
 requires = ["poetry-core"]

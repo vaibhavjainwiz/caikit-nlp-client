@@ -32,5 +32,11 @@ clean: ##Clean the created artifacts
 clean-generated: ##Clean the generated python directory
 	rm -rf $(GENERATED_PYTHON_DIR)
 
-build: #Build the wheel
+build: ##Build the wheel
 	poetry build
+
+test:  start-test-server ## Run unit tests / integration tests
+	pytest tests
+
+start-test-server:
+	echo "Starting a server"
