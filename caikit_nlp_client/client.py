@@ -1,8 +1,9 @@
 import abc
-import model
+
+from .model.text_generation import TextGenerationTask, TextGenerationTaskResult
 
 
 class CaikitNlpClient(abc.ABC):
     @abc.abstractmethod
-    def CreateTextGenerationTask(self, request: model.TextGenerationTask) -> model.TextGenerationTaskResul:
+    def create_text_generation_task(self, request: TextGenerationTask) -> TextGenerationTaskResult:
         pass

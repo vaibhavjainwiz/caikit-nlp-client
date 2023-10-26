@@ -1,13 +1,16 @@
-import client
-import model
-import alog
+#import alog
+from .client import CaikitNlpClient
+from .model.text_generation import TextGenerationTask, TextGenerationTaskResult
 
-log = alog.use_channel("GRPC_CLIENT")
+#print(alog.__file__)
+#log = alog.use_channel("GRPC_CLIENT")
 
 
-class GrpcCaikitNlpClient(client.CaikitNlpClient):
+class GrpcCaikitNlpClient(CaikitNlpClient):
 
-    def CreateTextGenerationTask(self, request: model.TextGenerationTask) -> model.TextGenerationTaskResul:
-        log.Info("Calling CreateTextGenerationTask")
-        result = model.TextGenerationTaskResul()
+    def create_text_generation_task(self, request: TextGenerationTask) -> TextGenerationTaskResult:
+        #log.Info("Calling CreateTextGenerationTask")
+        if request.model_id == "":
+            raise ValueError ("request must have a moodel id")
+        result = TextGenerationTaskResult("Random text")
         return result
