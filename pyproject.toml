@@ -1,8 +1,10 @@
 [tool.poetry.dependencies]
 python = "^3.9"
-caikit-nlp = { git = "https://github.com/opendatahub-io/caikit-nlp", rev = "0.2.1" }
+caikit-nlp = {git = "https://github.com/caikit/caikit-nlp", rev = "4f42230"}
+caikit = {git = "https://github.com/opendatahub-io/caikit", rev = "79f1f1a"}
 protobuf  ="4.24.4"
-alog = "1.2.0"
+alchemy-config="1.1.2"
+alchemy-logging="1.2.1"
 grpcio = "1.59.0"
 grpcio-reflection = "1.59.0"
 #build time dependencies
