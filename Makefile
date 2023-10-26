@@ -1,7 +1,7 @@
 REPO_ROOT := $(abspath .)
 GENERATED_PYTHON_DIR := $(REPO_ROOT)/caikit_nlp_client/generated
 
-.PHONY: generate_proto generate_python build clean clean-generated help
+.PHONY: generate_proto generate_python build clean clean-generated help integration-test test stop-test-server start-test-server
 
 help: ## Display this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
@@ -35,8 +35,17 @@ clean-generated: ##Clean the generated python directory
 build: ##Build the wheel
 	poetry build
 
-test:  start-test-server ## Run unit tests / integration tests
+test:  ## Run unit tests / integration tests against a running server
 	pytest tests
+
+integration-test: start-test-server test stop-test-server ## Start a server and run the tests
 
 start-test-server:
 	echo "Starting a server"
+	docker-compose up -d
+	sleep 10
+
+stop-test-server:
+	echo "Stopping the server"
+	docker-compose logs
+	docker-compose down
