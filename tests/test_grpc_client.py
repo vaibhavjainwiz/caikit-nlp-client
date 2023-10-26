@@ -1,9 +1,9 @@
 import pytest
 import grpc
+import logging
 from caikit_nlp_client.grpc_client2 import GrpcCaikitNlpClient
 
 from caikit_nlp_client.model.text_generation import TextGenerationTask
-
 
 @pytest.fixture
 def connected_client():
@@ -15,7 +15,8 @@ def connected_client():
 def test_create_text_generation_task(connected_client):
     task_request = TextGenerationTask("flan-t5-small-caikit", "What does foobar mean?")
     result = connected_client.create_text_generation_task(task_request)
-    print(result.generated_text)
+    logging.info(f"result generated text is: {result.generated_text}")
+    assert result.generated_text == "a symphony of a symphony"
 
 
 def test_create_text_generation_task_with_no_model_id(connected_client):

@@ -36,7 +36,7 @@ build: ##Build the wheel
 	poetry build
 
 test:  ## Run unit tests / integration tests against a running server
-	pytest tests
+	pytest --log-level=DEBUG tests
 
 integration-test: start-test-server test stop-test-server ## Start a server and run the tests
 

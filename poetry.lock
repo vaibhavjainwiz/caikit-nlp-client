@@ -252,14 +252,12 @@ tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pyte
 
 [[package]]
 name = "caikit"
-version = "0.20.6"
+version = "0.22.1.dev7+g79f1f1a"
 description = "AI toolkit that enables AI users to consume stable task-specific model APIs and enables AI developers build algorithms and models in a modular/composable framework"
 optional = false
 python-versions = ">=3.8"
-files = [
-    {file = "caikit-0.20.6-py3-none-any.whl", hash = "sha256:d2b1f2c0d87d9126a48a0e117a307ed9d98d8ab4a355bea9711d3f17b82ef43a"},
-    {file = "caikit-0.20.6.tar.gz", hash = "sha256:3e2472fc06ee38fd13be7c5e03c0434dd608512efbe45479e84cddada5011531"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 alchemy-config = ">=1.1.1,<2.0.0"
@@ -289,15 +287,21 @@ all = ["caikit[interfaces-vision,runtime-grpc,runtime-http]"]
 all-dev = ["caikit[all,dev-build,dev-docs,dev-fmt,dev-test]"]
 dev-build = ["flit (==3.9.0)"]
 dev-docs = ["sphinx (>=4.0.2,<8.0)", "sphinx-autoapi (>=2.1.0)", "sphinx-rtd-theme (>=1.2.1,<1.4.0)"]
-dev-fmt = ["pre-commit (>=3.0.4,<4.0)", "pydeps (>=1.12.12,<2)", "pylint (>=2.16.2,<3.0)"]
-dev-test = ["caikit[interfaces-vision]", "pytest (>=6.2.5,<8.0)", "pytest-asyncio (>=0.21.0,<1)", "pytest-cov (>=2.10.1,<5.0)", "pytest-html (>=3.1.1,<4.0)", "requests (>=2.28.2,<3)", "tls_test_tools (>=0.1.1)", "wheel (>=0.38.4)"]
+dev-fmt = ["pre-commit (>=3.0.4,<4.0)", "pydeps (>=1.12.12,<2)", "pylint (>=2.16.2,<4.0)"]
+dev-test = ["caikit[interfaces-vision]", "pytest (>=6.2.5,<8.0)", "pytest-asyncio (>=0.21.0,<1)", "pytest-cov (>=2.10.1,<5.0)", "pytest-html (>=3.1.1,<5.0)", "requests (>=2.28.2,<3)", "tls_test_tools (>=0.1.1)", "wheel (>=0.38.4)"]
 interfaces-vision = ["pillow (>=6.2.1,<11.0)"]
 runtime-grpc = ["grpcio-health-checking (>=1.35.0,<2.0)", "grpcio-reflection (>=1.35.0,<2.0)", "prometheus_client (>=0.12.0,<1.0)", "py-grpc-prometheus (>=0.7.0,<0.8)"]
 runtime-http = ["fastapi[all] (>=0.100,<1)", "sse-starlette (>=1.6.1,<2)"]
 
+[package.source]
+type = "git"
+url = "https://github.com/opendatahub-io/caikit"
+reference = "79f1f1a"
+resolved_reference = "79f1f1a4ec4d2409d8541f42979aa93a4a23c0a6"
+
 [[package]]
 name = "caikit-nlp"
-version = "0.0.1"
+version = "0.2.2.dev117+g4f42230"
 description = "Caikit NLP"
 optional = false
 python-versions = "~=3.9"
@@ -306,7 +310,7 @@ develop = false
 
 [package.dependencies]
 accelerate = ">=0.22.0"
-caikit = {version = ">=0.18.1,<0.21.0", extras = ["runtime-grpc", "runtime-http"]}
+caikit = {version = ">=0.22.0,<0.23.0", extras = ["runtime-grpc", "runtime-http"]}
 caikit-tgis-backend = ">=0.1.17,<0.2.0"
 datasets = ">=2.4.0"
 huggingface-hub = "*"
@@ -322,9 +326,9 @@ transformers = ">=4.32.0"
 
 [package.source]
 type = "git"
-url = "https://github.com/opendatahub-io/caikit-nlp"
-reference = "0.2.1"
-resolved_reference = "6f099312d65a15dc20952abfe77d3990a83669a3"
+url = "https://github.com/caikit/caikit-nlp"
+reference = "4f42230"
+resolved_reference = "4f42230832777ac9667700fba5254d6452942ce4"
 
 [[package]]
 name = "caikit-tgis-backend"
@@ -3283,4 +3287,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "d49aa046d953110863a3dce44fad93c56563e3e49504a5a02addd28561b57ca8"
+content-hash = "9120d175d95ab95d32aba1bdcaa172265cf167a1b0c26d658d33981dee406111"
