@@ -1,15 +1,18 @@
 import pytest
 import grpc
 import logging
-from caikit_nlp_client.grpc_client2 import GrpcCaikitNlpClient
+
+from caikit_nlp_client.grpc_client.grpcclient_builder import GRPCClientBuilder
 
 from caikit_nlp_client.model.text_generation import TextGenerationTask
 
 @pytest.fixture
 def connected_client():
     """Returns returns a grpc client connected to a running server"""
-    channel = grpc.insecure_channel("localhost:8085")
-    return GrpcCaikitNlpClient(channel)
+    return GRPCClientBuilder().\
+        set_grpc_address("localhost").\
+        set_grpc_port("8080").\
+        build()
 
 
 def test_create_text_generation_task(connected_client):
