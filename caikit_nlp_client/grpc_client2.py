@@ -5,9 +5,12 @@ from .client import CaikitNlpClient
 from .model.text_generation import TextGenerationTask, TextGenerationTaskResult
 from .generated.nlpservice_pb2_grpc import NlpServiceStub
 from .generated.caikit.runtime.Nlp.textgenerationtaskrequest_pb2 import TextGenerationTaskRequest
-from .generated.caikit.runtime.Nlp.serverstreamingtextgenerationtaskrequest_pb2 import ServerStreamingTextGenerationTaskRequest
+from .generated.caikit.runtime.Nlp.serverstreamingtextgenerationtaskrequest_pb2 import \
+    ServerStreamingTextGenerationTaskRequest
 
 log = alog.use_channel("GRPC_CLIENT")
+
+
 class GrpcCaikitNlpClient(CaikitNlpClient):
 
     def __init__(self, channel: grpc.Channel) -> None:
@@ -59,4 +62,3 @@ class GrpcCaikitNlpClient(CaikitNlpClient):
         except Exception as exc:
             log.error(f"Caught exception {exc}, rethrowing")
             raise exc
-
