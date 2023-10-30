@@ -13,6 +13,6 @@ import "caikit_data_model.runtime.trainingjob.proto";
 /*-- SERVICES ----------------------------------------------------------------*/
 
 service NlpTrainingService {
-  rpc TextGenerationTaskTextGenerationTrain(caikit.runtime.Nlp.TextGenerationTaskTextGenerationTrainRequest) returns (caikit_data_model.runtime.TrainingJob);
   rpc TextGenerationTaskPeftPromptTuningTrain(caikit.runtime.Nlp.TextGenerationTaskPeftPromptTuningTrainRequest) returns (caikit_data_model.runtime.TrainingJob);
+  rpc TextGenerationTaskTextGenerationTrain(caikit.runtime.Nlp.TextGenerationTaskTextGenerationTrainRequest) returns (caikit_data_model.runtime.TrainingJob);
 }

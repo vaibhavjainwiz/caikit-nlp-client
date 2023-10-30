@@ -5,7 +5,11 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class File(_message.Message):
-    __slots__ = ["filename"]
+    __slots__ = ["data", "filename", "type"]
+    DATA_FIELD_NUMBER: _ClassVar[int]
     FILENAME_FIELD_NUMBER: _ClassVar[int]
+    TYPE_FIELD_NUMBER: _ClassVar[int]
+    data: bytes
     filename: str
-    def __init__(self, filename: _Optional[str] = ...) -> None: ...
+    type: str
+    def __init__(self, data: _Optional[bytes] = ..., filename: _Optional[str] = ..., type: _Optional[str] = ...) -> None: ...

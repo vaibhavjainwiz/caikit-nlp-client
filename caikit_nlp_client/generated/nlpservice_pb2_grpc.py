@@ -25,6 +25,16 @@ class NlpServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.TokenClassificationTaskPredict = channel.unary_unary(
+                '/caikit.runtime.Nlp.NlpService/TokenClassificationTaskPredict',
+                request_serializer=caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.SerializeToString,
+                response_deserializer=caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.FromString,
+                )
+        self.BidiStreamingTokenClassificationTaskPredict = channel.stream_stream(
+                '/caikit.runtime.Nlp.NlpService/BidiStreamingTokenClassificationTaskPredict',
+                request_serializer=caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.SerializeToString,
+                response_deserializer=caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.FromString,
+                )
         self.TextGenerationTaskPredict = channel.unary_unary(
                 '/caikit.runtime.Nlp.NlpService/TextGenerationTaskPredict',
                 request_serializer=caikit_dot_runtime_dot_Nlp_dot_textgenerationtaskrequest__pb2.TextGenerationTaskRequest.SerializeToString,
@@ -40,22 +50,24 @@ class NlpServiceStub(object):
                 request_serializer=caikit_dot_runtime_dot_Nlp_dot_textclassificationtaskrequest__pb2.TextClassificationTaskRequest.SerializeToString,
                 response_deserializer=caikit__data__model_dot_nlp_dot_classificationresults__pb2.ClassificationResults.FromString,
                 )
-        self.TokenClassificationTaskPredict = channel.unary_unary(
-                '/caikit.runtime.Nlp.NlpService/TokenClassificationTaskPredict',
-                request_serializer=caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.SerializeToString,
-                response_deserializer=caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.FromString,
-                )
-        self.BidiStreamingTokenClassificationTaskPredict = channel.stream_stream(
-                '/caikit.runtime.Nlp.NlpService/BidiStreamingTokenClassificationTaskPredict',
-                request_serializer=caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.SerializeToString,
-                response_deserializer=caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.FromString,
-                )
 
 
 class NlpServiceServicer(object):
     """-- SERVICES ----------------------------------------------------------------
 
     """
+
+    def TokenClassificationTaskPredict(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BidiStreamingTokenClassificationTaskPredict(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def TextGenerationTaskPredict(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -75,21 +87,19 @@ class NlpServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def TokenClassificationTaskPredict(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def BidiStreamingTokenClassificationTaskPredict(self, request_iterator, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_NlpServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'TokenClassificationTaskPredict': grpc.unary_unary_rpc_method_handler(
+                    servicer.TokenClassificationTaskPredict,
+                    request_deserializer=caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.FromString,
+                    response_serializer=caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.SerializeToString,
+            ),
+            'BidiStreamingTokenClassificationTaskPredict': grpc.stream_stream_rpc_method_handler(
+                    servicer.BidiStreamingTokenClassificationTaskPredict,
+                    request_deserializer=caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.FromString,
+                    response_serializer=caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.SerializeToString,
+            ),
             'TextGenerationTaskPredict': grpc.unary_unary_rpc_method_handler(
                     servicer.TextGenerationTaskPredict,
                     request_deserializer=caikit_dot_runtime_dot_Nlp_dot_textgenerationtaskrequest__pb2.TextGenerationTaskRequest.FromString,
@@ -105,16 +115,6 @@ def add_NlpServiceServicer_to_server(servicer, server):
                     request_deserializer=caikit_dot_runtime_dot_Nlp_dot_textclassificationtaskrequest__pb2.TextClassificationTaskRequest.FromString,
                     response_serializer=caikit__data__model_dot_nlp_dot_classificationresults__pb2.ClassificationResults.SerializeToString,
             ),
-            'TokenClassificationTaskPredict': grpc.unary_unary_rpc_method_handler(
-                    servicer.TokenClassificationTaskPredict,
-                    request_deserializer=caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.FromString,
-                    response_serializer=caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.SerializeToString,
-            ),
-            'BidiStreamingTokenClassificationTaskPredict': grpc.stream_stream_rpc_method_handler(
-                    servicer.BidiStreamingTokenClassificationTaskPredict,
-                    request_deserializer=caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.FromString,
-                    response_serializer=caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.SerializeToString,
-            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'caikit.runtime.Nlp.NlpService', rpc_method_handlers)
@@ -126,6 +126,40 @@ class NlpService(object):
     """-- SERVICES ----------------------------------------------------------------
 
     """
+
+    @staticmethod
+    def TokenClassificationTaskPredict(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/caikit.runtime.Nlp.NlpService/TokenClassificationTaskPredict',
+            caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.SerializeToString,
+            caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BidiStreamingTokenClassificationTaskPredict(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/caikit.runtime.Nlp.NlpService/BidiStreamingTokenClassificationTaskPredict',
+            caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.SerializeToString,
+            caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def TextGenerationTaskPredict(request,
@@ -175,39 +209,5 @@ class NlpService(object):
         return grpc.experimental.unary_unary(request, target, '/caikit.runtime.Nlp.NlpService/TextClassificationTaskPredict',
             caikit_dot_runtime_dot_Nlp_dot_textclassificationtaskrequest__pb2.TextClassificationTaskRequest.SerializeToString,
             caikit__data__model_dot_nlp_dot_classificationresults__pb2.ClassificationResults.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def TokenClassificationTaskPredict(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/caikit.runtime.Nlp.NlpService/TokenClassificationTaskPredict',
-            caikit_dot_runtime_dot_Nlp_dot_tokenclassificationtaskrequest__pb2.TokenClassificationTaskRequest.SerializeToString,
-            caikit__data__model_dot_nlp_dot_tokenclassificationresults__pb2.TokenClassificationResults.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def BidiStreamingTokenClassificationTaskPredict(request_iterator,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/caikit.runtime.Nlp.NlpService/BidiStreamingTokenClassificationTaskPredict',
-            caikit_dot_runtime_dot_Nlp_dot_bidistreamingtokenclassificationtaskrequest__pb2.BidiStreamingTokenClassificationTaskRequest.SerializeToString,
-            caikit__data__model_dot_nlp_dot_tokenclassificationstreamresult__pb2.TokenClassificationStreamResult.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

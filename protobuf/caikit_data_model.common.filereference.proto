@@ -9,10 +9,8 @@ package caikit_data_model.common;
 
 /*-- MESSAGES ----------------------------------------------------------------*/
 
-message File {
+message FileReference {
 
   /*-- fields --*/
-  bytes data = 1;
-  string filename = 2;
-  string type = 3;
+  string filename = 1;
 }
