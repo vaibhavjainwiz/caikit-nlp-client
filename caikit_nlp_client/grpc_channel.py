@@ -1,7 +1,8 @@
 import grpc
-import logging
+import alog
 from dataclasses import dataclass
 
+log = alog.use_channel("GRPC_CLIENT")
 @dataclass
 class GrpcChannelConfig:
     host: str
@@ -13,6 +14,7 @@ class GrpcChannelConfig:
 
 
 def make_channel(config: GrpcChannelConfig) -> grpc.Channel:
+    log.debug(f"Making a channel from this config {config}")
     if config.host.strip() == "":
         raise ValueError("A non empty host name is required")
     if config.port <= int(0):
