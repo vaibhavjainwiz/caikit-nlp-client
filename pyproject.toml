@@ -61,11 +61,3 @@ addopts = "-ra --cov-config pyproject.toml"
 [tool.coverage.run]
 branch = true
 source = ["caikit_nlp_client", "tests"]
-
-[tool.ruff]
-exclude = [
-    "caikit_nlp_client/generated",
-    "protobuf",
-    "*/_pb2.py",
-    "*/_pb2.pyi"
-]
