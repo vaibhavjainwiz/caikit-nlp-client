@@ -1,5 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
+from typing import Optional
 
 
 class FinishReason(Enum):
@@ -30,28 +31,27 @@ class TextGenerationTaskResult:
     seed: int
     """
 
+
 @dataclass
 class ExponentialDecayLengthPenalty:
     start_index: int
     decay_factor: float
 
+
 @dataclass
 class TextGenerationTask:
-    model_id: str
     text: str
-    """  
-    max_new_tokens: int
-    min_new_tokens: int
-    truncate_input_tokens: int
-    decoding_method: str
-    top_k: int
-    top_p: float
-    typical_p: float
-    temperature: float
-    seed: int
-    repetition_penalty: float
-    max_time: float
-    exponential_decay_length_penalty: ExponentialDecayLengthPenalty
-    stop_sequences: [str]
-    preserve_input_text: bool
-    """
+    max_new_tokens: Optional[int] = 200
+    min_new_tokens: Optional[int] = 10
+    preserve_input_text: Optional[bool] = False
+    truncate_input_tokens: Optional[int] = None
+    decoding_method: Optional[str] = None
+    top_k: Optional[int] = None
+    top_p: Optional[float] = None
+    typical_p: Optional[float] = None
+    temperature: Optional[float] = None
+    seed: Optional[int] = None
+    repetition_penalty: Optional[float] = None
+    max_time: Optional[float] = None
+    exponential_decay_length_penalty: Optional[ExponentialDecayLengthPenalty] = None
+    stop_sequences: Optional[str] = None
