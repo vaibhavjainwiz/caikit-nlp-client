@@ -8,10 +8,10 @@ from caikit_nlp_client.model.text_generation import TextGenerationTask
 
 @pytest.fixture
 def connected_client():
-    """Returns returns a grpc client connected to a running server"""
+    """Returns a grpc client connected to a running server"""
     return GRPCClientBuilder().\
         set_grpc_address("localhost").\
-        set_grpc_port("8080").\
+        set_grpc_port("8085").\
         build()
 
 
