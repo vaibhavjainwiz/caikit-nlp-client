@@ -1,6 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
-
+from typing import Optional
 
 class FinishReason(Enum):
     NOT_FINISHED: 1
@@ -37,11 +37,11 @@ class ExponentialDecayLengthPenalty:
 
 @dataclass
 class TextGenerationTask:
-    model_id: str
     text: str
-    """  
-    max_new_tokens: int
-    min_new_tokens: int
+    max_new_tokens: Optional[int] = 200
+    min_new_tokens: Optional[int] = 10
+    preserve_input_text: Optional[bool] = False
+    """ 
     truncate_input_tokens: int
     decoding_method: str
     top_k: int
@@ -53,5 +53,5 @@ class TextGenerationTask:
     max_time: float
     exponential_decay_length_penalty: ExponentialDecayLengthPenalty
     stop_sequences: [str]
-    preserve_input_text: bool
+    
     """

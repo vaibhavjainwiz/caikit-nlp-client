@@ -38,14 +38,14 @@ build: ##Build the wheel
 test:  ## Run unit tests / integration tests against a running server
 	pytest --log-level=DEBUG tests
 
-integration-test: start-test-server test stop-test-server ## Start a server and run the tests
+integration-test: start-test-server test stop-test-server ## Start a server, run the tests, stop the tests
 
-start-test-server:
-	echo "Starting a server"
+start-test-server: ## Start the server
+	@echo "Starting a server"
 	docker-compose up -d
-	sleep 10
+	sleep 30
 
-stop-test-server:
-	echo "Stopping the server"
+stop-test-server: ## Stop the server
+	@echo "Stopping the server"
 	docker-compose logs
 	docker-compose down
