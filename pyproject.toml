@@ -45,7 +45,8 @@ dev = [
 tests = [
     "pytest",
     "pytest-cov",
-    "coverage[toml]"
+    "coverage[toml]",
+    "grpcio-health-checking"
 ]
 
 [tool.bandit]
