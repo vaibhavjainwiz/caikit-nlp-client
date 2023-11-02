@@ -116,7 +116,7 @@ def precommit(session: nox.Session) -> None:
 def mypy(session: nox.Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests"]
-    session.install(".")
+    session.install(".[types]")
     session.install("mypy", "pytest")
     session.run("mypy", *args)
     if not session.posargs:
