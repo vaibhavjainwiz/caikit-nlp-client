@@ -1,13 +1,11 @@
 import pytest
-from caikit_nlp_client.grpc_channel import GrpcChannelConfig, make_channel
 from caikit_nlp_client.grpc_client_introspection import GrpcCaikitNlpClientIntrospection
 
 
 @pytest.fixture
-def connected_client():
+def connected_client(channel):
     """Returns returns a grpc client connected to a locally running server"""
-    config = GrpcChannelConfig(host="localhost", port=8085, insecure=True)
-    return GrpcCaikitNlpClientIntrospection(make_channel(config))
+    return GrpcCaikitNlpClientIntrospection(channel)
 
 
 def test_generate_text(connected_client):
