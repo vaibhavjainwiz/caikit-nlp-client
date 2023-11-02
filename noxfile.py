@@ -126,6 +126,9 @@ def mypy(session: nox.Session) -> None:
 @nox.session(python=python_versions)
 def tests(session: nox.Session) -> None:
     """Run the test suite."""
+    session.install(
+        "--index-url=https://download.pytorch.org/whl/cpu", "torch"
+    )  # use torch-cpu to speed up tests
     session.install(".[tests]")
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
