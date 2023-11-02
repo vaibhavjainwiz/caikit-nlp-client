@@ -33,7 +33,7 @@ dependencies = [
     "protobuf==4.24.4",
     "alchemy-config==1.1.2",
     "alchemy-logging==1.2.1",
-    "grpcio==1.59.0",
+    "grpcio==1.59.2",
     "grpcio-reflection==1.59.0",
 ]
 
