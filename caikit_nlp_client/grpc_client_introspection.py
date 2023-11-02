@@ -7,7 +7,13 @@ from google.protobuf.descriptor_pool import DescriptorPool
 from google.protobuf.message_factory import GetMessageClass
 
 log = alog.use_channel("GRPC_CLIENT_INTROSPECTION")
+""" 
+The `GrpcCaikitNlpClientIntrospection` class provides methods to allow for interacting with Caikit server to 
+generate text from an input stream.
 
+Args:
+    channel (grpc.Channel): a connected GRPC channel for use of making the calls.
+"""
 class GrpcCaikitNlpClientIntrospection():
 
     def __init__(self, channel: grpc.Channel) -> None:
@@ -32,6 +38,24 @@ class GrpcCaikitNlpClientIntrospection():
             raise exc
 
     def generate_text(self, model_id: str, text:str,  **kwargs) -> str:
+        """generate_text sends a generate text request to the server for the given model id
+
+        Args:
+            model_id: the model identifier
+            text: the text to generate
+
+        Keyword Args:
+            preserve_input_text (Bool): preserve the input text (default to False)
+            max_new_tokens (int): maximum number of new tokens
+            min_new_tokens (int): minimum number of new tokens 
+        
+        Raises:
+            ValueError: thrown if an empty model id is passed
+            exc: thrown if any exceptions are caught while creating and sending the text generation request
+
+        Returns:
+            the generated text
+        """
         if model_id == "":
             raise ValueError("request must have a model id")
         try:
@@ -39,12 +63,7 @@ class GrpcCaikitNlpClientIntrospection():
             metadata = [("mm-model-id", model_id)]
 
             request = self.text_generation_task_request()
-            request.text = text
-            
-            request.preserve_input_text = kwargs.get("preserve_input_text", False)
-            request.max_new_tokens = kwargs.get("max_new_tokens", 200)
-            request.min_new_tokens = kwargs.get("min_new_tokens", 15)
-
+            self.__populate_request(request, text, **kwargs)
             response = self.text_generation_task_predict(request=request, metadata=metadata)
             log.debug(f"Response: {response}")
             result = response.generated_text
@@ -55,6 +74,24 @@ class GrpcCaikitNlpClientIntrospection():
             raise exc
 
     def generate_text_stream(self, model_id: str, text: str,  **kwargs) -> [str]:
+        """generate_text_stream sends a generate text stream request to the server for the given model id
+
+        Args:
+            model_id: the model identifier
+            text: the text to generate
+
+        Keyword Args:
+            preserve_input_text (Bool): preserve the input text (default to False)
+            max_new_tokens (int): maximum number of new tokens
+            min_new_tokens (int): minimum number of new tokens 
+        
+        Raises:
+            ValueError: thrown if an empty model id is passed
+            exc: thrown if any exceptions are caught while creating and sending the text generation request
+
+        Returns:
+            a list of generated text (token)
+        """
         if model_id == "":
             raise ValueError("request must have a model id")
         try:
@@ -63,10 +100,7 @@ class GrpcCaikitNlpClientIntrospection():
             metadata = [("mm-model-id", model_id)]
 
             request = self.server_streaming_text_generation_task_request()
-            request.text = text            
-            request.preserve_input_text = kwargs.get("preserve_input_text", False)
-            request.max_new_tokens = kwargs.get("max_new_tokens", 200)
-            request.min_new_tokens = kwargs.get("min_new_tokens", 15)
+            self.__populate_request(request, text, **kwargs)
             result = []
             for item in self.server_streaming_text_generation_task_predict(metadata=metadata, request=request):
                 result.append(item.generated_text)
@@ -75,5 +109,15 @@ class GrpcCaikitNlpClientIntrospection():
         except Exception as exc:
             log.error(f"Caught exception {exc}, re-throwing")
             raise exc
+    
+    def __populate_request(self, request, text, **kwargs) :    
+        request.text = text 
+        if 'preserve_input_text' in kwargs:
+            request.preserve_input_text = kwargs.get("preserve_input_text")
+        if  'max_new_tokens' in kwargs:
+            request.max_new_tokens = kwargs.get("max_new_tokens")
+        if 'min_new_tokens' in kwargs:
+            request.min_new_tokens = kwargs.get("min_new_tokens")
+
 
 
