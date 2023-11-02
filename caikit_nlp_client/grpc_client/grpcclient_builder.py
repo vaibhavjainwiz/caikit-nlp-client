@@ -1,10 +1,7 @@
-from typing import Any
-
 from caikit_nlp_client.grpc_client.grpc_client import GRPCClient
 
 
 class GRPCClientBuilder:
-
     def __init__(self):
         self.client_key = None
         self.client_crt = None
@@ -45,5 +42,5 @@ class GRPCClientBuilder:
             tls=self.tls,
             client_crt=self.client_crt,
             server_crt=self.server_crt,
-            client_key=self.client_key
+            client_key=self.client_key,
         )

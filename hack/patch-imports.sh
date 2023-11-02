@@ -6,4 +6,3 @@ script=$(readlink -f "$0")
 script_ath=$(dirname "$script")
 
 awk -f ${script_ath}/patch-imports.awk ${1} 1>"${tmp_file}" && mv ${tmp_file} ${1} && rm -f ${tmpfile}
-

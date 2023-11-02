@@ -1,10 +1,7 @@
-from typing import Any
-
 from caikit_nlp_client.http_client.http_client import httpClient
 
 
 class HTTPClientBuilder:
-
     def __init__(self):
         self.client_key = None
         self.client_crt = None
@@ -50,5 +47,5 @@ class HTTPClientBuilder:
             tls=self.tls,
             client_crt=self.client_crt,
             server_crt=self.server_crt,
-            client_key=self.client_key
+            client_key=self.client_key,
         )
