@@ -1,15 +1,11 @@
-import grpc
-import alog
+import logging
 
 import grpc
 from grpc_reflection.v1alpha.proto_reflection_descriptor_database import ProtoReflectionDescriptorDatabase
 from google.protobuf.descriptor_pool import DescriptorPool
 from google.protobuf.message_factory import GetMessageClass
 
-log = alog.use_channel("GRPC_CLIENT_INTROSPECTION")
-""" 
-The `GrpcCaikitNlpClientIntrospection` class provides methods to allow for interacting with Caikit server to 
-generate text from an input stream.
+log = logging.getLogger(__name__)
 
 Args:
     channel (grpc.Channel): a connected GRPC channel for use of making the calls.

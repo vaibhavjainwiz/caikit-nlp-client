@@ -1,8 +1,9 @@
-import grpc
-import alog
+import logging
 from dataclasses import dataclass
 
-log = alog.use_channel("GRPC_CLIENT")
+import grpc
+
+log = logging.getLogger(__name__)
 
 
 @dataclass
