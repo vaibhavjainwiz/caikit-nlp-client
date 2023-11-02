@@ -40,7 +40,8 @@ namespaces = false
 dev = [
     "ruff==0.1.3",
     "grpcio-tools==1.59.2",
-    "types-requests==2.31.0.10"
+    "types-requests==2.31.0.10",
+    "types-protobuf==4.24.0.4"
 ]
 tests = [
     "pytest",
