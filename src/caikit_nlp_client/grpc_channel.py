@@ -20,7 +20,7 @@ def make_channel(config: GrpcChannelConfig) -> grpc.Channel:
     log.debug(f"Making a channel from this config {config}")
     if config.host.strip() == "":
         raise ValueError("A non empty host name is required")
-    if config.port <= int(0):
+    if config.port <= 0:
         raise ValueError("A non zero port is required")
     connection = f"{config.host}:{config.port}"
     if config.insecure:
