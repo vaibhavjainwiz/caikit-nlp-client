@@ -18,4 +18,3 @@
 from . import caikit, caikit_data_model
 from .caikit import *
 from .caikit_data_model import *
-
