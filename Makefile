@@ -9,28 +9,12 @@ help: ## Display this help.
 $(REPO_ROOT)/protobuf:
 	mkdir -pv $(REPO_ROOT)/protobuf
 
-$(GENERATED_PYTHON_DIR):
-	mkdir -pv $(GENERATED_PYTHON_DIR)
-
-$(REPO_ROOT)/caikit_nlp_client/__init__.py:
-	touch $(REPO_ROOT)/caikit_nlp_client/__init__.py
-
 generate-proto: $(REPO_ROOT)/protobuf ##Generate the .proto files from a running instance of caikit-nlp grpc server
 	RUNTIME_LIBRARY=caikit_nlp python -m caikit.runtime.dump_services $(REPO_ROOT)/protobuf
-
-PREFIX:="caikit_nlp_client.generated."
-generate-python: $(GENERATED_PYTHON_DIR) $(REPO_ROOT)/caikit_nlp_client/__init__.py ##Generate the _pb2.py files from the generated *.proto
-	python -m grpc_tools.protoc -I$(REPO_ROOT)/protobuf --python_out=$(GENERATED_PYTHON_DIR) --pyi_out=$(GENERATED_PYTHON_DIR) --grpc_python_out=$(GENERATED_PYTHON_DIR) $(REPO_ROOT)/protobuf/nlpservice.proto
-	python -m grpc_tools.protoc -I$(REPO_ROOT)/protobuf --python_out=$(GENERATED_PYTHON_DIR) --pyi_out=$(GENERATED_PYTHON_DIR)  $(REPO_ROOT)/protobuf/caikit.runtime.*.proto
-	python -m grpc_tools.protoc -I$(REPO_ROOT)/protobuf --python_out=$(GENERATED_PYTHON_DIR) --pyi_out=$(GENERATED_PYTHON_DIR)  $(REPO_ROOT)/protobuf/caikit_data_model.*.proto
-	find $(GENERATED_PYTHON_DIR) -type directory -exec touch {}/__init__.py \;
-	find $(GENERATED_PYTHON_DIR) -type f \( -name "*.py" -o -name "*.pyi" \) -exec $(REPO_ROOT)/hack/patch-imports.sh {} \;
 
 clean: ##Clean the created artifacts
 	rm -rf dist
 
-clean-generated: ##Clean the generated python directory
-	rm -rf $(GENERATED_PYTHON_DIR)
 
 build: ##Build the wheel
 	poetry build
