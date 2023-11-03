@@ -51,7 +51,7 @@ class GrpcCaikitNlpClientIntrospection:
             raise exc
 
     def generate_text(self, model_id: str, text: str, **kwargs) -> str:
-        """generate_text sends a generate text request to the server for the given model id
+        """Sends a generate text request to the server for the given model id
 
         Args:
             model_id: the model identifier
@@ -64,7 +64,8 @@ class GrpcCaikitNlpClientIntrospection:
 
         Raises:
             ValueError: thrown if an empty model id is passed
-            exc: thrown if any exceptions are caught while creating and sending the text generation request
+            exc: thrown if any exceptions are caught while creating and sending
+            the text generation request
 
         Returns:
             the generated text
@@ -89,7 +90,7 @@ class GrpcCaikitNlpClientIntrospection:
             raise exc
 
     def generate_text_stream(self, model_id: str, text: str, **kwargs) -> [str]:
-        """generate_text_stream sends a generate text stream request to the server for the given model id
+        """Sends a generate text stream request to the server for the given model id
 
         Args:
             model_id: the model identifier
@@ -102,7 +103,8 @@ class GrpcCaikitNlpClientIntrospection:
 
         Raises:
             ValueError: thrown if an empty model id is passed
-            exc: thrown if any exceptions are caught while creating and sending the text generation request
+            exc: thrown if any exceptions are caught while creating and sending the
+                text generation request
 
         Returns:
             a list of generated text (token)
@@ -122,7 +124,8 @@ class GrpcCaikitNlpClientIntrospection:
             ):
                 result.append(item.generated_text)
             log.info(
-                f"Calling generate_text_stream was successful, '{len(result)}' items in result"
+                f"Calling generate_text_stream was successful, '{len(result)}'"
+                " items in result"
             )
             return result
         except Exception as exc:
