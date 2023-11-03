@@ -1,4 +1,5 @@
 import time
+from pathlib import Path
 from typing import Callable, TypeVar
 
 import pytest
@@ -24,11 +25,26 @@ def wait_until(pred: Callable[..., _T], timeout: float, pause: float = 0.1) -> _
 
 
 @pytest.fixture
+def model_name():
+    """name of the model utilized by the tests. Has to be in `tests/tiny_models`"""
+    # Note that this can be overridden in tests via indirect parametrization
+    available_models = [
+        "BertForSequenceClassification-caikit",
+        "BloomForCausalLM-caikit",
+        "T5ForConditionalGeneration-caikit",
+    ]
+    return available_models[0]
+
+
+@pytest.fixture
 def caikit_nlp_runtime(monkeypatch):
+    """configures caikit by setting environment variables"""
     monkeypatch.setenv("RUNTIME_LIBRARY", "caikit_nlp")
+    # make caikit runtime logs readable: it logs in json by default
+    monkeypatch.setenv("LOG_FORMATTER", "pretty")
     monkeypatch.setenv(
         "RUNTIME_LOCAL_MODELS_DIR",
-        "/home/dtrifiro/work/caikit-tgis-serving/temp_venv/models/",
+        str(Path(__file__).parent / "tiny_models"),
     )
     # TODO: add port configuration here using `RUNTIME_GRPC_PORT`
 

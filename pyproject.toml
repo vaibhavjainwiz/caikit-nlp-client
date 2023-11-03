@@ -52,8 +52,8 @@ tests = [
     "pytest-cov",
     "coverage[toml]",
     "grpcio-health-checking",
-    "caikit-nlp @ git+https://github.com/caikit/caikit-nlp@4f42230",
-    "caikit @ git+https://github.com/caikit/caikit@02bfc41", # 02bfc41 a commit behind 0.23.0
+    "caikit-nlp @ git+https://github.com/caikit/caikit-nlp@4a5b2f8",
+    "caikit @ git+https://github.com/caikit/caikit",
 ]
 
 [tool.bandit]
