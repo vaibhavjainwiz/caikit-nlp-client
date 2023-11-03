@@ -73,3 +73,6 @@ source = ["caikit_nlp_client", "tests"]
 [tool.ruff.lint]
 select = [ "E", "F", "UP", "B", "SIM", "I"]
 ignore = []
+
+[tool.ruff]
+line-length = 88
