@@ -16,11 +16,8 @@ class HTTPCaikitNlpClient:
     """
 
     def __init__(self, http_config: HTTPConfig) -> None:
-        mode = "http"
-        if http_config.mtls or http_config.tls:
-            mode = "https"
-
-        base_url = f"{mode}://{http_config.host}:{http_config.port}"
+        protocol = "https" if (http_config.mtls or http_config.tls) else "http"
+        base_url = f"{protocol}://{http_config.host}:{http_config.port}"
         text_generation_endpoint = "/api/v1/task/text-generation"
         text_generation_stream_endpoint = "/api/v1/task/server-streaming-text"
 
