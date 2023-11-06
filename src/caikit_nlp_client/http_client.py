@@ -3,7 +3,6 @@ from typing import Any
 
 import requests
 
-from src.caikit_nlp_client import constant
 from src.caikit_nlp_client.http_config import HTTPConfig
 
 log = logging.getLogger(__name__)
@@ -17,15 +16,20 @@ class HTTPCaikitNlpClient:
     """
 
     def __init__(self, http_config: HTTPConfig) -> None:
-        self.api_url = constant.HTTP_TEXT_GENERATION_URI.format(
-            http_config.host, http_config.port
-        )
-        self.stream_api_url = constant.HTTP_TEXT_GENERATION_STREAM_URI.format(
-            http_config.host, http_config.port
-        )
+        mode = "http"
+        if http_config.mtls or http_config.tls:
+            mode = "https"
+
+        base_url = f"{mode}://{http_config.host}:{http_config.port}"
+        text_generation_endpoint = "/api/v1/task/text-generation"
+        text_generation_stream_endpoint = "/api/v1/task/server-streaming-text"
+
+        self.api_url = f"{base_url}{text_generation_endpoint}"
+        self.stream_api_url = f"{base_url}{text_generation_stream_endpoint}"
 
     def generate_text(self, model_id: str, text: str, **kwargs) -> str:
-        """generate_text sends a generate text request to the server for the given model id
+        """generate_text sends a generate text request to the server
+        for the given model id
 
         Args:
             model_id: the model identifier
@@ -38,7 +42,8 @@ class HTTPCaikitNlpClient:
 
         Raises:
             ValueError: thrown if an empty model id is passed
-            exc: thrown if any exceptions are caught while creating and sending the text generation request
+            exc: thrown if any exceptions are caught while creating and sending
+            the text generation request
 
         Returns:
             the generated text
@@ -48,10 +53,7 @@ class HTTPCaikitNlpClient:
         try:
             log.info(f"Calling generate_text for '{model_id}'")
             json_input = create_json_request(model_id, text, **kwargs)
-            response = requests.post(
-                self.api_url,
-                json=json_input,
-            )
+            response = requests.post(self.api_url, json=json_input, timeout=10)
             log.debug(f"Response: {response}")
             result = response.text
             log.info("Calling generate_text was successful")
@@ -61,7 +63,8 @@ class HTTPCaikitNlpClient:
             raise exc
 
     def generate_text_stream(self, model_id: str, text: str, **kwargs) -> [str]:
-        """generate_text_stream sends a generate text stream request to the server for the given model id
+        """generate_text_stream sends a generate text stream request to the server
+        for the given model id
 
         Args:
             model_id: the model identifier
@@ -74,7 +77,8 @@ class HTTPCaikitNlpClient:
 
         Raises:
             ValueError: thrown if an empty model id is passed
-            exc: thrown if any exceptions are caught while creating and sending the text generation request
+            exc: thrown if any exceptions are caught while creating and sending
+            the text generation request
 
         Returns:
             a list of generated text (token)
@@ -84,10 +88,7 @@ class HTTPCaikitNlpClient:
         try:
             log.info(f"Calling generate_text_stream for '{model_id}'")
             json_input = create_json_request(model_id, text, **kwargs)
-            response = requests.post(
-                self.stream_api_url,
-                json=json_input,
-            )
+            response = requests.post(self.stream_api_url, json=json_input, timeout=10)
             log.debug(f"Response: {response}")
             result = response.text
             log.info("Calling generate_text_stream was successful")

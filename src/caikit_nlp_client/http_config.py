@@ -6,7 +6,7 @@ class HTTPConfig:
     host: str
     port: int
     tls: bool = False
-    mTls: bool = False
+    mtls: bool = False
     client_key = None
     client_crt = None
     server_crt = None

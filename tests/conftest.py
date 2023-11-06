@@ -118,12 +118,11 @@ def http_server(caikit_nlp_runtime, http_server_port):
     http_server.start(blocking=False)
 
     def health_check():
-        health_check_url = "http://{}:{}/health".format("localhost", http_server_port)
-        response = requests.get(health_check_url)
-        if response.status_code == 200:
-            return True
-        else:
-            raise Exception("HTTP Server not healthy")
+        response = requests.get(
+            f"http://localhost:{http_server_port}/health",
+        )
+        assert response.status_code == 200
+        assert response.text == "OK"
 
     wait_until(health_check, timeout=30, pause=0.5)
 
