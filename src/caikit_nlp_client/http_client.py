@@ -15,7 +15,7 @@ class HTTPCaikitNlpClient:
         http_config (HTTPConfig): Configurations to make HTTP call.
     """
 
-    def __init__(self, http_config: HTTPConfig) -> None:
+    def __init__(self, http_config: HTTPConfig):
         protocol = "https" if (http_config.mtls or http_config.tls) else "http"
         base_url = f"{protocol}://{http_config.host}:{http_config.port}"
         text_generation_endpoint = "/api/v1/task/text-generation"
@@ -25,8 +25,7 @@ class HTTPCaikitNlpClient:
         self.stream_api_url = f"{base_url}{text_generation_stream_endpoint}"
 
     def generate_text(self, model_id: str, text: str, **kwargs) -> str:
-        """generate_text sends a generate text request to the server
-        for the given model id
+        """Queries the `text-generation` endpoint for the given model_id
 
         Args:
             model_id: the model identifier
@@ -56,12 +55,11 @@ class HTTPCaikitNlpClient:
             log.info("Calling generate_text was successful")
             return result
         except Exception as exc:
-            log.error(f"Caught exception {exc}, re-throwing")
+            log.exception(f"Caught exception {exc}, re-throwing")
             raise exc
 
     def generate_text_stream(self, model_id: str, text: str, **kwargs) -> [str]:
-        """generate_text_stream sends a generate text stream request to the server
-        for the given model id
+        """Queries the `text-generation` stream endpoint for the given model_id
 
         Args:
             model_id: the model identifier
@@ -91,7 +89,7 @@ class HTTPCaikitNlpClient:
             log.info("Calling generate_text_stream was successful")
             return result
         except Exception as exc:
-            log.error(f"Caught exception {exc}, re-throwing")
+            log.exception(f"Caught exception {exc}, re-throwing")
             raise exc
 
 

@@ -49,6 +49,7 @@ def caikit_nlp_runtime(monkeypatch):
         "RUNTIME_LOCAL_MODELS_DIR",
         str(Path(__file__).parent / "tiny_models"),
     )
+    monkeypatch.setenv("RUNTIME_HTTP_PORT", "8080")
     # TODO: add port configuration here using `RUNTIME_GRPC_PORT`
 
 
@@ -95,23 +96,19 @@ def grpc_server(caikit_nlp_runtime, grpc_server_port):
     grpc_server.stop()
 
 
-@pytest.fixture()
-def http_server_port():
-    """default port for caikit grpc runtime"""
-    return 8080
-
-
 @pytest.fixture
-def http_config(http_server_port):
+def http_config(caikit_nlp_runtime):
+    from caikit.config import get_config
+
     return HTTPConfig(
         host="localhost",
-        port=http_server_port,
+        port=get_config().runtime.http.port,
         tls=False,
     )
 
 
 @pytest.fixture
-def http_server(caikit_nlp_runtime, http_server_port):
+def http_server(caikit_nlp_runtime, http_config):
     from caikit.runtime.http_server import RuntimeHTTPServer
 
     http_server = RuntimeHTTPServer()
@@ -119,7 +116,7 @@ def http_server(caikit_nlp_runtime, http_server_port):
 
     def health_check():
         response = requests.get(
-            f"http://localhost:{http_server_port}/health",
+            f"http://{http_config.host}:{http_config.port}/health",
         )
         assert response.status_code == 200
         assert response.text == "OK"
