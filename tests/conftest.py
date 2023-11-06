@@ -3,8 +3,11 @@ from pathlib import Path
 from typing import Callable, TypeVar
 
 import pytest
-from caikit_nlp_client.grpc_channel import GrpcChannelConfig, make_channel
+import requests
 from grpc_health.v1 import health_pb2, health_pb2_grpc
+
+from src.caikit_nlp_client.grpc_channel import GrpcChannelConfig, make_channel
+from src.caikit_nlp_client.http_config import HTTPConfig
 
 _T = TypeVar("_T")
 
@@ -90,3 +93,40 @@ def grpc_server(caikit_nlp_runtime, grpc_server_port):
     yield grpc_server
 
     grpc_server.stop()
+
+
+@pytest.fixture()
+def http_server_port():
+    """default port for caikit grpc runtime"""
+    return 8080
+
+
+@pytest.fixture
+def http_config(http_server_port):
+    return HTTPConfig(
+        host="localhost",
+        port=http_server_port,
+        tls=False,
+    )
+
+
+@pytest.fixture
+def http_server(caikit_nlp_runtime, http_server_port):
+    from caikit.runtime.http_server import RuntimeHTTPServer
+
+    http_server = RuntimeHTTPServer()
+    http_server.start(blocking=False)
+
+    def health_check():
+        health_check_url = "http://{}:{}/health".format("localhost", http_server_port)
+        response = requests.get(health_check_url)
+        if response.status_code == 200:
+            return True
+        else:
+            raise Exception("HTTP Server not healthy")
+
+    wait_until(health_check, timeout=30, pause=0.5)
+
+    yield http_server
+
+    http_server.stop()
