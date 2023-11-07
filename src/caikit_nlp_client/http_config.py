@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -7,6 +8,6 @@ class HTTPConfig:
     port: int
     tls: bool = False
     mtls: bool = False
-    client_key: str = None
-    client_crt: str = None
-    server_crt: str = None
+    client_key: Optional[str] = None
+    client_crt: Optional[str] = None
+    server_crt: Optional[str] = None
